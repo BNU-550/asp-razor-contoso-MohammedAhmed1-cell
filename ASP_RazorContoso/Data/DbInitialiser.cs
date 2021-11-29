@@ -10,6 +10,17 @@ namespace ASP_RazorContoso.Data
     {
         public static void Initialize(ApplicationDbContext context)
         {
+            AddStudents(context);
+
+            AddCourse(context);
+
+            AddEnrollments(context);
+
+            AddModules(context);
+        }
+
+        public static void AddStudents(ApplicationDbContext context)
+        {
             // Look for any students.
             if (context.Students.Any())
             {
@@ -30,20 +41,36 @@ namespace ASP_RazorContoso.Data
 
             context.Students.AddRange(students);
             context.SaveChanges();
+        }
+
+        private static void AddCourse(ApplicationDbContext context)
+        {
+            if (context.Courses.Any())
+            {
+                return;
+            }
 
             var courses = new Course[]
             {
-                new Course{CourseID=1050,Title="Web Applications",Credits=3},
-                new Course{CourseID=4022,Title="Real Time Systems",Credits=3},
-                new Course{CourseID=4041,Title="Object Oriented Programming",Credits=3},
-                new Course{CourseID=1045,Title="Mobile Apps",Credits=4},
-                new Course{CourseID=3141,Title="Database Design",Credits=4},
-                new Course{CourseID=2021,Title="Object Oriented Design and Analysis",Credits=3},
-                new Course{CourseID=2042,Title="Software Engineering",Credits=4}
+                new Course{CourseID=1050,CourseCode="BT1CTG1",Title="Web Applications",Credits=3},
+                new Course{CourseID=4022,CourseCode="BT1CWD1",Title="Real Time Systems",Credits=3},
+                new Course{CourseID=4041,CourseCode="BB1DSC1",Title="Object Oriented Programming",Credits=3},
+                new Course{CourseID=1045,CourseCode="BT1SFT1",Title="Mobile Apps",Credits=4},
+                new Course{CourseID=3141,CourseCode="BB1ARI1",Title="Database Design",Credits=4},
+                new Course{CourseID=2021,CourseCode="MT1CYS1",Title="Object Oriented Design and Analysis",Credits=3},
+                new Course{CourseID=2042,CourseCode="BT1GDV1",Title="Software Engineering",Credits=4}
             };
 
             context.Courses.AddRange(courses);
             context.SaveChanges();
+        }
+
+        private static void AddEnrollments(ApplicationDbContext context)
+        {
+            if (context.Enrollments.Any())
+            {
+                return;
+            }
 
             var enrollments = new Enrollment[]
             {
@@ -63,6 +90,50 @@ namespace ASP_RazorContoso.Data
 
             context.Enrollments.AddRange(enrollments);
             context.SaveChanges();
+        }
+
+        private static void AddModules(ApplicationDbContext context)
+        {
+            if (context.Modules.Any())
+            {
+                return;
+            }
+
+            Module co550 = new Module
+            {
+                ModuleID = "CO550",
+                Title = "Web Applications"
+            };
+
+            Module co588 = new Module
+            {
+                ModuleID = "CO558",
+                Title = "Database Design"
+            };
+
+            Module co567 = new Module
+            {
+                ModuleID = "CO567",
+                Title = "OO Systems Development"
+            };
+
+            Module co566 = new Module
+            {
+                ModuleID = "CO566",
+                Title = "Mobile Systems"
+            };
+
+            var modules = new Module[]
+            {
+                co550,
+                co566,
+                co588,
+                co567
+            };
+
+            context.Modules.AddRange(modules);
+            context.SaveChanges(true);
+
         }
     }
 }
